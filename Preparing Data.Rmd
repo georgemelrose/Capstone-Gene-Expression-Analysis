@@ -36,12 +36,10 @@ GSM4407921_htseq_count_inj_p53_neg_rep1_txt <- read_delim("DEG Tutorial Data/inj
 GSM4407922_htseq_count_inj_p53_neg_rep2_txt <- read_delim("DEG Tutorial Data/inj_p53_neg/GSM4407922_htseq-count.inj_p53_neg.rep2.txt.gz", 
     delim = "\t", escape_double = FALSE, 
     col_names = FALSE, trim_ws = TRUE, show_col_types = FALSE)
-View(GSM4407922_htseq_count_inj_p53_neg_rep2_txt)
 
 GSM4407923_htseq_count_inj_p53_neg_rep3_txt <- read_delim("DEG Tutorial Data/inj_p53_neg/GSM4407923_htseq-count.inj_p53_neg.rep3.txt.gz", 
     delim = "\t", escape_double = FALSE, 
     col_names = FALSE, trim_ws = TRUE, show_col_types = FALSE)
-View(GSM4407923_htseq_count_inj_p53_neg_rep3_txt)
 
 #Merging the replicates of the uninjured ventricle of tp53 mutant fish group# 
 
