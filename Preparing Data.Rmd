@@ -1,0 +1,52 @@
+---
+title: "Preparing Data"
+author: "George Melrose"
+date: "23/01/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This document follows the DEG exploratory data analysis as outlined here https://mkempenaar.github.io/gene_expression_analysis/chapter-3.html
+
+The data used for this tutorial example is from the paper *'Tp53 Suppression Promotes Cardiomyocyte Proliferation during Zebrafish Heart Regeneration.'*
+
+There are several different data types for RNA HTS - 
+* Read Count (required; simple raw count of mapped reads to a certain gene or transcript)
+
+* FPKM (Fragments Per Kilobase Million, F for Fragment, paired-end sequencing)
+
+* RPKM (Reads Per Kilobase Million, R for Read, single-end sequencing)
+
+* TPM (Transcripts Per Kilobase Million, T for Transcript, technique independent)
+
+The Zebrafish data is divided into 4 experimental groups: 1) uninjured ventricle of tp53 mutant fish (*ing_p53_neg*); 2) injured ventricle of tp53 mutant fish; 3) uninjured ventricle of tp53 wild type fish; 4) injured ventricle of tp53 wild type fish.
+
+```{r echo = T, results = 'hide'}
+#Getting data#
+library(readr)
+
+GSM4407921_htseq_count_inj_p53_neg_rep1_txt <- read_delim("DEG Tutorial Data/inj_p53_neg/GSM4407921_htseq-count.inj_p53_neg.rep1.txt.gz", 
+    delim = "\t", escape_double = FALSE, 
+    col_names = FALSE, trim_ws = TRUE, show_col_types = FALSE)
+
+
+GSM4407922_htseq_count_inj_p53_neg_rep2_txt <- read_delim("DEG Tutorial Data/inj_p53_neg/GSM4407922_htseq-count.inj_p53_neg.rep2.txt.gz", 
+    delim = "\t", escape_double = FALSE, 
+    col_names = FALSE, trim_ws = TRUE, show_col_types = FALSE)
+View(GSM4407922_htseq_count_inj_p53_neg_rep2_txt)
+
+GSM4407923_htseq_count_inj_p53_neg_rep3_txt <- read_delim("DEG Tutorial Data/inj_p53_neg/GSM4407923_htseq-count.inj_p53_neg.rep3.txt.gz", 
+    delim = "\t", escape_double = FALSE, 
+    col_names = FALSE, trim_ws = TRUE, show_col_types = FALSE)
+View(GSM4407923_htseq_count_inj_p53_neg_rep3_txt)
+
+#Merging the replicates of the uninjured ventricle of tp53 mutant fish group# 
+
+inj_p53_neg <- merge(GSM4407921_htseq_count_inj_p53_neg_rep1_txt, GSM4407922_htseq_count_inj_p53_neg_rep2_txt, by = "X1", all.x = TRUE, all.y = TRUE, sort = FALSE)
+
+inj_p53_neg <- merge(inj_p53_neg,GSM4407923_htseq_count_inj_p53_neg_rep3_txt, by = "X1", all.x = TRUE, all.y = TRUE, sort = FALSE)
+```
+
